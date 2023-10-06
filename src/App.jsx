@@ -1,13 +1,13 @@
 import { useState } from "react";
+import SearchBar from "./components/SearchBar";
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  const [searchText, setSearchText] = useState("Test");
   return (
     <>
-      <h1 className="font-bold text-blue-500 w-fit m-auto text-8xl">
-        Hello world !
-      </h1>
+      <div className="w-fit mx-auto my-8">
+        <SearchBar value={searchText} setValue={setSearchText} />
+      </div>
     </>
   );
 }
