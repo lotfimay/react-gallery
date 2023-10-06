@@ -3,7 +3,7 @@ import SearchBar from "./components/SearchBar";
 import Gallery from "./components/Gallery";
 
 function App() {
-  const [searchText, setSearchText] = useState("Test");
+  const [searchText, setSearchText] = useState("");
   return (
     <>
       <div className="w-fit mx-auto my-8">

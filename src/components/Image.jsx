@@ -1,11 +1,10 @@
 import React from "react";
 
-const Image = ({ src, title, views, downloads, likes, tags }) => {
-  console.log(tags);
+const Image = ({ id, src, title, views, downloads, likes, tags }) => {
   return (
-    <div>
-      <div className="w[480px] h-[300px]">
-        <div className="bg-blue-500 w-full h-full"></div>
+    <div className="border rounded-lg drop-shadow-lg">
+      <div className="">
+        <img src={src} alt="" />
       </div>
       <div className="p-2">
         <div className="">
@@ -26,7 +25,11 @@ const Image = ({ src, title, views, downloads, likes, tags }) => {
         {tags && (
           <div className="mt-8 flex items-center justify-start gap-2 font-mono">
             {tags.map((tag) => {
-              return <p className="py-1 px-2 bg-blue-200 rounded-lg">#{tag}</p>;
+              return (
+                <p key={tag} className="py-1 px-2 bg-blue-200 rounded-lg">
+                  #{tag}
+                </p>
+              );
             })}
           </div>
         )}
