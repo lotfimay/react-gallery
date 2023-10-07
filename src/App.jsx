@@ -10,7 +10,7 @@ function App() {
         <SearchBar value={searchText} setValue={setSearchText} />
       </div>
       <div className="p-8">
-        <Gallery />
+        <Gallery searchText={searchText} />
       </div>
     </>
   );

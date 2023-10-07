@@ -2,8 +2,42 @@ import React, { useState } from "react";
 
 import Image from "./Image";
 import { useEffect } from "react";
-const Gallery = () => {
+const Gallery = ({ searchText }) => {
   const [images, setImages] = useState([]);
+
+  const getImages = (hits) => {
+    const data = [];
+
+    hits.forEach((hit) => {
+      data.push({
+        id: hit.id,
+        src: hit.largeImageURL,
+        title: `photo by @${hit.user}`,
+        views: hit.views,
+        likes: hit.likes,
+        downloads: hit.downloads,
+        tags: hit.tags.split(", "),
+      });
+    });
+
+    return data;
+  };
+
+  useEffect(() => {
+    const searchImages = async () => {
+      let value = searchText.trim();
+      if (value !== "") {
+        value = value.replace(" ", "+");
+        const response = await fetch(
+          `https://pixabay.com/api/?key=39881990-e090a96ffc517459212bc3254&q=${value}`
+        );
+        const result = await response.json();
+        const data = getImages(result.hits);
+        setImages(data);
+      }
+    };
+    searchImages();
+  }, [searchText]);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -11,25 +45,8 @@ const Gallery = () => {
         "https://pixabay.com/api/?key=39881990-e090a96ffc517459212bc3254"
       );
       const result = await response.json();
-      const hits = result.hits;
-
-      console.log(hits);
-
-      const data = [];
-
-      hits.forEach((hit) => {
-        data.push({
-          id: hit.id,
-          src: hit.largeImageURL,
-          title: `photo by @${hit.user}`,
-          views: hit.views,
-          likes: hit.likes,
-          downloads: hit.downloads,
-          tags: hit.tags.split(", "),
-        });
-      });
+      const data = getImages(result.hits);
       setImages(data);
-      console.log(images);
     };
     fetchImages();
   }, []);
